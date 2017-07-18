@@ -3,15 +3,15 @@ class QuotesController < ApplicationController
   def index
     @quotes = Quote.all
     json_response(@quotes)
-    name = params[:name]
-    binding.pry
-    @quotes = Quote.search(name)
+
 
   end
 
   def show
     @quote = Quote.find(params[:id])
     json_response(@quote)
+  end
+  def new
   end
 
   def create
