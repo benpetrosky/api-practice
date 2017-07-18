@@ -3,6 +3,10 @@ class QuotesController < ApplicationController
   def index
     @quotes = Quote.all
     json_response(@quotes)
+    name = params[:name]
+    binding.pry
+    @quotes = Quote.search(name)
+
   end
 
   def show
@@ -11,9 +15,13 @@ class QuotesController < ApplicationController
   end
 
   def create
-    @quote = Quote.create!(quote_params)
+    @quote = Quote.new(quote_params)
+    if @quote.save
     json_response(@quote, :created)
+  else
+    json_response(@quote, 422)
   end
+ end
 
   def update
     @quote = Quote.find(params[:id])
